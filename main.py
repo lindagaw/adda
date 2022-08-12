@@ -34,8 +34,10 @@ if __name__ == '__main__':
 
     src_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
     tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
-    src_classifier = nn.Linear(2048, 31).cuda()
 
+    del model
+
+    src_classifier = nn.Linear(2048, 31).cuda()
     critic = nn.Linear(2048, 2).cuda() # critic
 
     # train source model
