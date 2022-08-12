@@ -17,7 +17,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from IPython.display import HTML
 
-from misc import weights_init
 import torchvision.models as models
 
 # Set random seed for reproducibility
