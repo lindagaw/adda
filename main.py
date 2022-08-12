@@ -38,7 +38,10 @@ if __name__ == '__main__':
     del model
 
     src_classifier = nn.Linear(2048, 31).cuda()
-    critic = nn.Linear(2048, 2).cuda() # critic
+    critic = init_model(Discriminator(input_dims=params.d_input_dims,
+                                      hidden_dims=params.d_hidden_dims,
+                                      output_dims=params.d_output_dims),
+                        restore=params.d_model_restore)
 
     # train source model
     print("=== Training classifier for source domain ===")
