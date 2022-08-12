@@ -63,15 +63,13 @@ if __name__ == '__main__':
     print(">>> Critic <<<")
     #print(critic)
 
-    src_encoder_cp = src_encoder
-
-    tgt_encoder = train_tgt(src_encoder_cp, tgt_encoder, critic, src_data_loader, tgt_data_loader)
+    tgt_encoder = train_tgt(src_encoder, tgt_encoder, critic, src_data_loader, tgt_data_loader)
 
     # eval target encoder on test set of target dataset
     print("=== Evaluating classifier for encoded target domain ===")
     print(">>> source encoder on source <<<")
-    eval_src(src_encoder, src_classifier, src_data_loader_eval)
+    eval_tgt(src_encoder, src_classifier, src_data_loader_eval)
     print(">>> source encoder on target <<<")
-    eval_src(src_encoder, src_classifier, tgt_data_loader_eval)
+    eval_tgt(src_encoder, src_classifier, tgt_data_loader_eval)
     print(">>> domain adaption <<<")
-    eval_src(tgt_encoder, src_classifier, tgt_data_loader_eval)
+    eval_tgt(tgt_encoder, src_classifier, tgt_data_loader_eval)
