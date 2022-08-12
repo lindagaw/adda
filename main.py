@@ -1,19 +1,20 @@
 """Main script for ADDA."""
 
-import params
+import params, pretty_errors
 from core import eval_src, eval_tgt, train_src, train_tgt
 from models import Discriminator, LeNetClassifier, LeNetEncoder
 from utils import get_data_loader, init_model, init_random_seed
+
+from datasets import obtain_office_31
 
 if __name__ == '__main__':
     # init random seed
     init_random_seed(params.manual_seed)
 
     # load dataset
-    src_data_loader = get_data_loader(params.src_dataset)
-    src_data_loader_eval = get_data_loader(params.src_dataset, train=False)
-    tgt_data_loader = get_data_loader(params.src_dataset)
-    tgt_data_loader_eval = get_data_loader(params.src_dataset, train=False)
+    src_data_loader, src_data_loader_eval = obtain_office_31('A')
+    tgt_data_loader, tgt_data_loader_eval = obtain_office_31('A')
+
 
 '''
     # load models
