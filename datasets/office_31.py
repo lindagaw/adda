@@ -39,9 +39,9 @@ def obtain_office_31(subdomain):
 
     if subdomain == 'A':
         dataroot = dataroot_amazon
-    elif subdomain == 'D'
+    elif subdomain == 'D':
         dataroot = dataroot_dslr
-    elif subdomain == 'W'
+    elif subdomain == 'W':
         dataroot = dataroot_webcam
 
     dataset = datasets.ImageFolder(root=dataroot, transform=transform)
