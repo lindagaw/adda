@@ -36,7 +36,7 @@ if __name__ == '__main__':
     tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
     src_classifier = nn.Linear(2048, 31).cuda()
 
-    model.fc = nn.Linear(2048, 2).cuda() # critic
+    critic = nn.Linear(2048, 2).cuda() # critic
 
     # train source model
     print("=== Training classifier for source domain ===")
@@ -57,9 +57,9 @@ if __name__ == '__main__':
     print(">>> Target Encoder <<<")
     print(tgt_encoder)
     print(">>> Critic <<<")
-    print(model)
+    print(critic)
 
-    tgt_encoder = train_tgt(src_encoder, tgt_encoder, model, src_data_loader, tgt_data_loader)
+    tgt_encoder = train_tgt(src_encoder, tgt_encoder, critic, src_data_loader, tgt_data_loader)
 
     # eval target encoder on test set of target dataset
     print("=== Evaluating classifier for encoded target domain ===")
