@@ -27,6 +27,10 @@ def eval_tgt(encoder, classifier, data_loader):
         preds = classifier(encoder(images))
         loss += criterion(preds, labels).item()
 
+        print(preds.shape)
+        print(images.shape)
+        print('-------')
+
         pred_cls = preds.data.max(1)[1]
         acc += pred_cls.eq(labels.data).cpu().sum()
 
