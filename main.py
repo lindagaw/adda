@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # load dataset
     src_data_loader, src_data_loader_eval = obtain_office_31('W')
-    tgt_data_loader, tgt_data_loader_eval = src_data_loader, src_data_loader_eval
+    tgt_data_loader, tgt_data_loader_eval = obtain_office_31('W')
 
     model = get_classifier('inception_v3', pretrain=True)
 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     # eval target encoder on test set of target dataset
     print("=== Evaluating classifier for encoded target domain ===")
-    #print(">>> source only <<<")
-    #eval_tgt(src_encoder, src_classifier, tgt_data_loader_eval)
+    print(">>> source only <<<")
+    eval_tgt(src_encoder, src_classifier, tgt_data_loader_eval)
     print(">>> domain adaption <<<")
     eval_tgt(tgt_encoder, src_classifier, tgt_data_loader_eval)
