@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # load dataset
     src_data_loader, src_data_loader_eval = obtain_office_31('W')
-    tgt_data_loader, tgt_data_loader_eval = obtain_office_31('D')
+    tgt_data_loader, tgt_data_loader_eval = src_data_loader, src_data_loader_eval
 
     model = get_classifier('inception_v3', pretrain=True)
 

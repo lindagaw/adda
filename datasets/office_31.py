@@ -23,7 +23,7 @@ def obtain_office_31(subdomain):
     """Get MNIST dataset loader."""
     # image pre-processing
     batch_size = 16
-    image_size = 224
+    image_size = 299
 
     dataroot_amazon = "..//dcgan//datasets//office-31-intact//amazon//images//"
     dataroot_dslr = "..//dcgan//datasets//office-31-intact//dslr//images//"
