@@ -8,6 +8,20 @@ from utils import get_data_loader, init_model, init_random_seed
 
 from datasets import obtain_office_31
 
+import argparse
+import os
+import random
+import torch
+import torch.nn as nn
+import torch.nn.parallel
+import torch.backends.cudnn as cudnn
+import torch.optim as optim
+import torch.utils.data
+import torchvision.datasets as dset
+import torchvision.transforms as transforms
+import torchvision.utils as vutils
+import numpy as np
+
 if __name__ == '__main__':
     # init random seed
     init_random_seed(params.manual_seed)
@@ -18,11 +32,11 @@ if __name__ == '__main__':
 
     model = get_classifier('inception_v3', pretrain=True)
 
-    src_encoder = torch.nn.Sequential(*(list(model.children())[:-1]))
-    tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1]))
-    src_classifier = nn.Linear(2048, 31)
+    src_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
+    tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
+    src_classifier = nn.Linear(2048, 31).cuda()
 
-    model.fc = nn.Linear(2048, 2) # critic
+    model.fc = nn.Linear(2048, 2).cuda() # critic
 
     # train source model
     print("=== Training classifier for source domain ===")
