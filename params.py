@@ -39,7 +39,7 @@ save_step = 200
 manual_seed = None
 
 # params for optimizing models
-d_learning_rate = 1e-5
-c_learning_rate = 1e-5
+d_learning_rate = 1e-2
+c_learning_rate = 1e-2
 beta1 = 0.5
 beta2 = 0.9
