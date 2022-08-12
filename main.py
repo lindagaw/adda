@@ -45,9 +45,9 @@ if __name__ == '__main__':
     # train source model
     print("=== Training classifier for source domain ===")
     print(">>> Source Encoder <<<")
-    print(src_encoder)
+    #print(src_encoder)
     print(">>> Source Classifier <<<")
-    print(src_classifier)
+    #print(src_classifier)
 
     src_encoder, src_classifier = train_src(src_encoder, src_classifier, src_data_loader)
 
@@ -59,9 +59,12 @@ if __name__ == '__main__':
     # train target encoder by GAN
     print("=== Training encoder for target domain ===")
     print(">>> Target Encoder <<<")
-    print(tgt_encoder)
+    #print(tgt_encoder)
     print(">>> Critic <<<")
-    print(critic)
+    #print(critic)
+
+    eval_src(src_encoder, src_classifier, src_data_loader_eval)
+
 
     tgt_encoder = train_tgt(src_encoder, tgt_encoder, critic, src_data_loader, tgt_data_loader)
 

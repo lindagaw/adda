@@ -16,9 +16,6 @@ def train_tgt(src_encoder, tgt_encoder, critic,
     ####################
     # 1. setup network #
     ####################
-
-    src_encoder.eval()
-
     # set train state for Dropout and BN layers
     tgt_encoder.train()
     critic.train()

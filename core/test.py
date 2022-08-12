@@ -7,7 +7,7 @@ from utils import make_variable
 
 
 def eval_tgt(encoder, classifier, data_loader):
-    """Evaluation for target encoder by source classifier on target dataset."""
+    """Evaluate classifier for tgt domain."""
     # set eval state for Dropout and BN layers
     encoder.eval()
     classifier.eval()
@@ -21,16 +21,12 @@ def eval_tgt(encoder, classifier, data_loader):
 
     # evaluate network
     for (images, labels) in data_loader:
-        images = make_variable(images, volatile=True)
-        labels = make_variable(labels).squeeze_()
+        images = make_variable(images.squeeze_(), volatile=True)
+        labels = make_variable(labels.squeeze_())
 
-        encoded = encoder(images.squeeze_())
-        preds = classifier(encoded.squeeze_())
+        encoded = encoder(images).squeeze_()
+        preds = classifier(encoded)
         loss += criterion(preds, labels).item()
-
-        print(preds.shape)
-        print(images.shape)
-        print('-------')
 
         pred_cls = preds.data.max(1)[1]
         acc += pred_cls.eq(labels.data).cpu().sum()
