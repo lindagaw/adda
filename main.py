@@ -6,7 +6,7 @@ from models import Discriminator, LeNetClassifier, LeNetEncoder
 from models import get_classifier
 from utils import get_data_loader, init_model, init_random_seed
 
-from datasets import obtain_office_31
+from datasets import obtain_office_31, obtain_office_home
 
 import argparse
 import os
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     print("=== Evaluating classifier for source domain ===")
     eval_src(src_encoder, src_classifier, src_data_loader_eval)
 
-'''
+
     # train target encoder by GAN
     print("=== Training encoder for target domain ===")
     print(">>> Target Encoder <<<")
@@ -59,14 +59,7 @@ if __name__ == '__main__':
     print(">>> Critic <<<")
     print(critic)
 
-    # init weights of target encoder with those of source encoder
-    if not tgt_encoder.restored:
-        tgt_encoder.load_state_dict(src_encoder.state_dict())
-
-    if not (tgt_encoder.restored and critic.restored and
-            params.tgt_model_trained):
-        tgt_encoder = train_tgt(src_encoder, tgt_encoder, critic,
-                                src_data_loader, tgt_data_loader)
+    tgt_encoder = train_tgt(src_encoder, tgt_encoder, critic, src_data_loader, tgt_data_loader)
 
     # eval target encoder on test set of target dataset
     print("=== Evaluating classifier for encoded target domain ===")
@@ -74,4 +67,3 @@ if __name__ == '__main__':
     eval_tgt(src_encoder, src_classifier, tgt_data_loader_eval)
     print(">>> domain adaption <<<")
     eval_tgt(tgt_encoder, src_classifier, tgt_data_loader_eval)
-'''
