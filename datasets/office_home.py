@@ -23,7 +23,7 @@ def obtain_office_home(subdomain):
     """Get MNIST dataset loader."""
     # image pre-processing
     batch_size = 32
-    image_size = 299
+    image_size = 224
 
     dataroot_art = "..//dcgan//datasets//OfficeHome//Art//"
     dataroot_clipart = "..//dcgan//datasets//OfficeHome//Clipart//"
