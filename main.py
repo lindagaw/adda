@@ -3,6 +3,7 @@
 import params, pretty_errors
 from core import eval_src, eval_tgt, train_src, train_tgt
 from models import Discriminator, LeNetClassifier, LeNetEncoder
+from models import get_classifier
 from utils import get_data_loader, init_model, init_random_seed
 
 from datasets import obtain_office_31
@@ -12,22 +13,16 @@ if __name__ == '__main__':
     init_random_seed(params.manual_seed)
 
     # load dataset
-    src_data_loader, src_data_loader_eval = obtain_office_31('A')
-    tgt_data_loader, tgt_data_loader_eval = obtain_office_31('A')
+    src_data_loader, src_data_loader_eval = obtain_office_31('W')
+    tgt_data_loader, tgt_data_loader_eval = obtain_office_31('D')
 
+    model = get_classifier('inception_v3', pretrain=True)
 
-'''
-    # load models
-    src_encoder = init_model(net=LeNetEncoder(),
-                             restore=params.src_encoder_restore)
-    src_classifier = init_model(net=LeNetClassifier(),
-                                restore=params.src_classifier_restore)
-    tgt_encoder = init_model(net=LeNetEncoder(),
-                             restore=params.tgt_encoder_restore)
-    critic = init_model(Discriminator(input_dims=params.d_input_dims,
-                                      hidden_dims=params.d_hidden_dims,
-                                      output_dims=params.d_output_dims),
-                        restore=params.d_model_restore)
+    src_encoder = torch.nn.Sequential(*(list(model.children())[:-1]))
+    tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1]))
+    src_classifier = nn.Linear(2048, 31)
+
+    model.fc = nn.Linear(2048, 2) # critic
 
     # train source model
     print("=== Training classifier for source domain ===")
@@ -36,6 +31,7 @@ if __name__ == '__main__':
     print(">>> Source Classifier <<<")
     print(src_classifier)
 
+'''
     if not (src_encoder.restored and src_classifier.restored and
             params.src_model_trained):
         src_encoder, src_classifier = train_src(
