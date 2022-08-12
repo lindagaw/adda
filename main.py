@@ -30,7 +30,7 @@ if __name__ == '__main__':
     src_data_loader, src_data_loader_eval = obtain_office_31('W')
     tgt_data_loader, tgt_data_loader_eval = obtain_office_31('D')
 
-    model = get_classifier('resnet101', pretrain=True)
+    model = get_classifier('resnet50', pretrain=True)
 
     src_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
     tgt_encoder = torch.nn.Sequential(*(list(model.children())[:-1])).cuda()
