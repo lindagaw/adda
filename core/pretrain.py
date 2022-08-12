@@ -31,14 +31,15 @@ def train_src(encoder, classifier, data_loader):
     for epoch in range(params.num_epochs_pre):
         for step, (images, labels) in enumerate(data_loader):
             # make images and labels variable
-            images = make_variable(images)
+            images = make_variable(images.squeeze_())
             labels = make_variable(labels.squeeze_())
 
             # zero gradients for optimizer
             optimizer.zero_grad()
 
             # compute loss for critic
-            preds = classifier(encoder(images))
+            encoded = encoder(images).squeeze_()
+            preds = classifier(encoded)
             loss = criterion(preds, labels)
 
             # optimize source classifier
@@ -86,10 +87,11 @@ def eval_src(encoder, classifier, data_loader):
 
     # evaluate network
     for (images, labels) in data_loader:
-        images = make_variable(images, volatile=True)
-        labels = make_variable(labels)
+        images = make_variable(images.squeeze_(), volatile=True)
+        labels = make_variable(labels.squeeze_())
 
-        preds = classifier(encoder(images))
+        encoded = encoder(images).squeeze_()
+        preds = classifier(encoded)
         loss += criterion(preds, labels).item()
 
         pred_cls = preds.data.max(1)[1]
