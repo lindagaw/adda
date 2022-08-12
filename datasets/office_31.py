@@ -22,7 +22,7 @@ from torch.utils.data import TensorDataset, ConcatDataset, DataLoader
 def obtain_office_31(subdomain):
     """Get MNIST dataset loader."""
     # image pre-processing
-    batch_size = 32
+    batch_size = 16
     image_size = 224
 
     dataroot_amazon = "..//dcgan//datasets//office-31-intact//amazon//images//"
