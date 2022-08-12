@@ -56,7 +56,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             feat_concat = torch.cat((feat_src, feat_tgt), 0)
 
             # predict on discriminator
-            pred_concat = critic(feat_concat.detach())
+            pred_concat = critic(feat_concat.squeeze_().detach())
 
             # prepare real and fake label
             label_src = make_variable(torch.ones(feat_src.size(0)).long())
@@ -85,7 +85,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             feat_tgt = tgt_encoder(images_tgt)
 
             # predict on discriminator
-            pred_tgt = critic(feat_tgt)
+            pred_tgt = critic(feat_tgt.squeeze_())
 
             # prepare fake labels
             label_tgt = make_variable(torch.ones(feat_tgt.size(0)).long())
