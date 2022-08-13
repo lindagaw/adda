@@ -51,6 +51,8 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             optimizer_critic.zero_grad()
 
             # extract and concat features
+            tgt_encoder.eval()
+            critic.train()
             feat_src = src_encoder(images_src)
             feat_tgt = tgt_encoder(images_tgt)
             feat_concat = torch.cat((feat_src, feat_tgt), 0)
@@ -82,8 +84,10 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             optimizer_tgt.zero_grad()
 
             # extract and target features
-            feat_tgt = tgt_encoder(images_tgt)
 
+            tgt_encoder.train()
+            critic.eval()
+            feat_tgt = tgt_encoder(images_tgt)
             # predict on discriminator
             pred_tgt = critic(feat_tgt.squeeze_())
 
