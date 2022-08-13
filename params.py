@@ -29,11 +29,11 @@ d_model_restore = "snapshots/ADDA-critic-final.pt"
 
 # params for training network
 num_gpu = 1
-num_epochs_pre = 5
+num_epochs_pre = 10
 log_step_pre = 20
 eval_step_pre = 20
 save_step_pre = 100
-num_epochs = 5
+num_epochs = 10
 log_step = 20
 save_step = 200
 manual_seed = None
