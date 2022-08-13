@@ -36,8 +36,6 @@ if __name__ == '__main__':
     src_encoder = torch.nn.Sequential(*(list(src_model.children())[:-1])).cuda()
     tgt_encoder = torch.nn.Sequential(*(list(tgt_model.children())[:-1])).cuda()
 
-    
-
     src_classifier = nn.Linear(2048, 31).cuda()
     critic = Discriminator(input_dims=params.d_input_dims,
                         hidden_dims=params.d_hidden_dims,
@@ -72,7 +70,7 @@ if __name__ == '__main__':
     print("=== Evaluating classifier for encoded target domain ===")
     print(">>> source encoder on source <<<")
     # eval_tgt(src_encoder, src_classifier, src_data_loader_eval)
-    eval_src(src_encoder, src_classifier, src_data_loader_eval)
+    eval_tgt(src_encoder, src_classifier, src_data_loader_eval)
 
     print(">>> source encoder on target <<<")
     eval_tgt(src_encoder, src_classifier, tgt_data_loader_eval)
