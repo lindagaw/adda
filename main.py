@@ -32,11 +32,11 @@ if __name__ == '__main__':
 
     src_model = get_classifier('inception_v3', pretrain=True)
     tgt_model = get_classifier('inception_v3', pretrain=True)
-    
+
     src_encoder = torch.nn.Sequential(*(list(src_model.children())[:-1])).cuda()
     tgt_encoder = torch.nn.Sequential(*(list(tgt_model.children())[:-1])).cuda()
 
-    del model
+    
 
     src_classifier = nn.Linear(2048, 31).cuda()
     critic = Discriminator(input_dims=params.d_input_dims,
