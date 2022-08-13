@@ -23,6 +23,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
 
     # setup criterion and optimizer
     criterion = nn.CrossEntropyLoss()
+    mse_loss = nn.MSELoss()
     optimizer_tgt = optim.Adam(tgt_encoder.parameters(),
                                lr=params.c_learning_rate,
                                betas=(params.beta1, params.beta2))
@@ -88,6 +89,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             tgt_encoder.train()
             critic.eval()
             feat_tgt = tgt_encoder(images_tgt)
+            feat_tgt_src = src_encoder(images_tgt)
             # predict on discriminator
             pred_tgt = critic(feat_tgt.squeeze_())
 
@@ -95,7 +97,9 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             label_tgt = make_variable(torch.ones(feat_tgt.size(0)).long())
 
             # compute loss for target encoder
-            loss_tgt = criterion(pred_tgt, label_tgt)
+            const_loss = mse_loss(feat_tgt, feat_tgt_src.detach())
+            print(const_loss)
+            loss_tgt = criterion(pred_tgt, label_tgt) + 0.1 * const_loss
             loss_tgt.backward()
 
             # optimize target encoder
