@@ -99,7 +99,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
             # compute loss for target encoder
 
             const_loss = mse_loss(feat_tgt, feat_tgt_src.detach().squeeze())
-            loss_tgt = criterion(pred_tgt, label_tgt) + 0.1 * const_loss
+            loss_tgt = criterion(pred_tgt, label_tgt) + const_loss
             loss_tgt.backward()
 
             # optimize target encoder
