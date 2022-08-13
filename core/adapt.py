@@ -19,6 +19,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
     # set train state for Dropout and BN layers
     tgt_encoder.train()
     critic.train()
+    src_encoder.eval()
 
     # setup criterion and optimizer
     criterion = nn.CrossEntropyLoss()
