@@ -27,7 +27,7 @@ if __name__ == '__main__':
     init_random_seed(params.manual_seed)
 
     # load dataset
-    src_data_loader, src_data_loader_eval = obtain_office_31('W')
+    src_data_loader, src_data_loader_eval = obtain_office_31('A')
     tgt_data_loader, tgt_data_loader_eval = obtain_office_31('D')
 
     src_model = get_classifier('inception_v3', pretrain=True)
